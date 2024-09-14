@@ -1,3 +1,6 @@
+/**
+ * Ежемесячный платёж
+ */
 export interface MonthPayment{
     index: number, //Номер месяца
     startPeriod: Date, //Начало периода

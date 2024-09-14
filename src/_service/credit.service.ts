@@ -9,7 +9,7 @@ import { GetCreditPaymentsResponse } from "../_model/get-credit-payments-respons
   })
 export class CreditService{
     private options = {headers: new HttpHeaders().set('Content-Type', 'application/json')};
-    api: string = "http://192.168.100.4:8080/credits";
+    api: string = "http://localhost:8080/credits";
 
     constructor(private httpClient: HttpClient){
     }

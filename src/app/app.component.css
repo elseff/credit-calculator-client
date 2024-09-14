@@ -1,0 +1,17 @@
+.payment-item {
+    max-width: 30%;
+    padding: 1rem;
+    background-color: #eeeeee;
+    border-radius: 10px;
+    border-color: #428fce;
+    border-style: dashed;
+    margin: 1rem;
+}
+
+.payments-list {
+    line-height: 1.5;
+}
+
+.calculate-btn {
+    max-width: 18rem;
+}

@@ -1,5 +1,8 @@
 import { MonthPayment } from "./month-payment";
 
+/**
+ * Ответ от сервера с графиком платежей
+ */
 export interface GetCreditPaymentsResponse{
     payments: MonthPayment[], //Платежи
     rate: number, //Ставка

@@ -5,97 +5,101 @@
   <p>Данный сервис поможет составить график платежей по кредиту</p>
 </div>
 
-<div>
-  <label for="date-input">Введите дату начала кредита</label>
-  <input  type="date" 
-          id="date-input" 
-          [(ngModel)]="request.startDate">
-</div>
-<div>
-  <label for="amount-input">Введите сумму кредита</label>
-  <form>
-    <input  type="range" 
-            name="amountRange" 
-            min="100000" 
-            max="10000000" 
-            value="500000" 
-            step="10000" 
-            oninput="this.form.amountInput.value=this.value"
-            [(ngModel)]="request.amount"/>
-    <input  type="number" 
-            name="amountInput" 
-            min="100000" 
-            max="100" 
-            value="500000" 
-            disabled="true"/> рублей
-  </form>
-</div>
-<div>
-  <label for="period-input">Введите период кредита</label>
-   <form>
-    <input  type="range" 
-            name="amountRange" 
-            min="3" 
-            max="120" 
-            value="18" 
-            step="1" 
-            oninput="this.form.amountInput.value=this.value" 
-            [(ngModel)]="request.period"/>
-    <input  type="number" 
-            name="amountInput" 
-            min="3" 
-            max="120" 
-            value="18" 
-            oninput="this.form.amountRange.value=this.value" 
-            disabled="true"/> месяцев
-  </form>
-</div>
-<div>
-  <label for="payment-types">Выберите тип платежей</label>
-  <select name="payment-types" id="payment-types" [(ngModel)]="request.paymentType">
-    <option value="annual">Аннуительный</option>
-    <option value="differentiated">Дифференцированный</option>
-  </select>
-</div>
-<div>
-  <label for="rate-input">Введите годовую ставку</label>
+<div class="container">
+  <div>
+    <label for="date-input">Введите дату начала кредита</label>
+    <input type="date" id="date-input" [(ngModel)]="request.startDate">
+  </div>
+  <div>
+    <label for="amount-input">Введите сумму кредита</label>
+    <form>
+      <input type="range" name="amountRange" min="100000" max="10000000" step="10000"
+        oninput="this.form.amountInput.value=this.value" [(ngModel)]="request.amount" />
+      <input type="number" name="amountInput" min="100000" max="100" disabled="true" [(ngModel)]="request.amount"/> рублей
+    </form>
+  </div>
+  <div>
+    <label for="period-input">Введите период кредита</label>
+    <form>
+      <input type="range" name="amountRange" min="3" max="120" step="1" oninput="this.form.amountInput.value=this.value"
+        [(ngModel)]="request.period" />
+      <input type="number" name="amountInput" min="3" max="120" oninput="this.form.amountRange.value=this.value"
+      [(ngModel)]="request.period"
+        disabled="true" /> месяцев
+    </form>
+  </div>
+  <div>
+    <label for="payment-types">Выберите тип платежей</label>
+    <select name="payment-types" id="payment-types" [(ngModel)]="request.paymentType">
+      <option value="annual">
+        Аннуительный
+      </option>
+      <option value="differentiated" selected>
+        Дифференцированный
+      </option>
+    </select>
+  </div>
+  <div>
+    <label for="rate-input">Введите годовую ставку</label>
 
-  <form>
-    <input  type="range" 
-            name="amountRange"
-            min="5" 
-            max="30" 
-            value="10" 
-            step="1" oninput="this.form.amountInput.value=this.value" 
-            [(ngModel)]="request.rate"/>
-    <input  type="number" 
-            name="amountInput" 
-            min="5" 
-            max="30" 
-            value="10" 
-            oninput="this.form.amountRange.value=this.value" 
-            disabled="true" /> %
-  </form>
+    <form>
+      <input type="range" name="amountRange" min="5" max="30" step="1" oninput="this.form.amountInput.value=this.value"
+        [(ngModel)]="request.rate" />
+      <input type="number" name="amountInput" min="5" max="30" oninput="this.form.amountRange.value=this.value"
+      [(ngModel)]="request.rate" 
+        disabled="true" /> %
+    </form>
+  </div>
+
+</div>
+<div class="container">
+  <button (click)="clickCalculate()" [disabled]="!fieldsIsValid()" class="calculate-btn">
+    Рассчитать график платежей
+  </button>
+  <br>
+  <button (click)="clearForm()" class="calculate-btn">
+    Очистить форму
+  </button>
 </div>
 
 <div>
-  <button (click)="clickCalculate()">Рассчитать график платежей</button>
-</div>
-
-<div>
-  <h1>Платежи</h1>
-  <ul>
-    <li *ngFor="let payment of payments">
-      <h2>{{payment.description}}</h2>
-      <h3>Номер: {{payment.index}}</h3>
-      <h3>Начала периода: {{payment.startPeriod}}</h3>
-      <h3>Конец периода: {{payment.endPeriod}}</h3>
-      <h3>Сумма долга: {{payment.debtBalance}} руб.</h3>
-      <h3>Сумма платежа: {{payment.payment}} руб.</h3>
-      <h3>Процентная часть: {{payment.percentagePart}} руб.</h3>
-      <h3>Долговая часть: {{payment.debtPart}} руб.</h3>
-      <h3>Конец долга на конец месяца: {{payment.debtBalanceOnPeriodEnd}} руб.</h3>
-
-    </li>
-  </ul>
+  <h1 *ngIf="response">График платежей</h1>
+  <div class="container">
+    <span *ngIf="response?.rate">
+      <b>Ставка: </b>{{response?.rate}}%
+    </span>
+    <span *ngIf="response?.startPeriod">
+      <b>Начало периода: </b>{{response?.startPeriod}}
+    </span>
+    <span *ngIf="response?.endPeriod">
+      <b>Конец периода: </b>{{response?.endPeriod}}
+    </span>
+    <span *ngIf="response?.amount">
+      <b>Сумма заёма: </b>{{response?.amount}} руб.
+    </span>
+    <span *ngIf="response?.paymentType">
+      <b>Тип платежей: </b>{{response?.paymentType}}
+    </span>
+    <span *ngIf="response?.totalAmount">
+      <b>Общая сумма кредита: </b>{{response?.totalAmount}} руб.
+    </span>
+    <span *ngIf="response?.overpayment">
+      <b>Переплата в рублях: </b>{{response?.overpayment}} руб.
+    </span>
+    <span *ngIf="response?.percentageOverpayment">
+      <b>Переплата в процентах: </b>{{response?.percentageOverpayment}} %
+    </span>
+  </div>
+  <div *ngFor="let payment of response?.payments" class="payments">
+    <div class="payment-item">
+      <h3>{{payment.description}} {{payment.index}}</h3>
+      <p> <b>Начало периода: </b> {{payment.startPeriod}}</p>
+      <p> <b>Конец периода:</b> {{payment.endPeriod}}</p>
+      <p> <b>Сумма долга:</b> {{payment.debtBalance}} руб.</p>
+      <p> <b>Сумма платежа:</b> {{payment.payment}} руб.</p>
+      <p> <b>Процентная часть:</b> {{payment.percentagePart}} руб.</p>
+      <p> <b>Долговая часть:</b> {{payment.debtPart}} руб.</p>
+      <p> <b>Конец долга на конец месяца:</b> {{payment.debtBalanceOnPeriodEnd}} руб.</p>
+    </div>
+  </div>
 </div>
