@@ -1,7 +1,7 @@
 export interface GetCreditPaymentsRequest{
-    startDate: Date,
-    amount: number,
-    period: number,
-    paymentType: string,
-    rate: number
+    startDate: Date, //Дата начала кредита
+    amount: number, //Сумма кредита
+    period: number, //Период
+    paymentType: string, //Тип платежей
+    rate: number //Годовая ставка
 }
