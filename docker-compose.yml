@@ -2,9 +2,7 @@ version: '3'
 services:
   credit-service-client:
     container_name: credit-calculator-client-container
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: "${CONTAINER_REGISTRY_URL}/${CONTAINER_REGISTRY_USERNAME}/credit-calculator-client"
     environment:
       - "CLIENT_PORT=${CLIENT_PORT}"
     ports:
