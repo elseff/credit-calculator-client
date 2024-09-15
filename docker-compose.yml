@@ -1,0 +1,11 @@
+version: '3'
+services:
+  credit-service-client:
+    container_name: credit-calculator-client-container
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - "CLIENT_PORT=${CLIENT_PORT}"
+    ports:
+      - "${CLIENT_PORT}:${CLIENT_PORT}"
