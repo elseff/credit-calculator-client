@@ -18,7 +18,7 @@ jobs:
       CLIENT_PORT: ${{ vars.CLIENT_PORT }}
     steps:
       - name: Checkout v2
-        uses: actions@checkout@v2
+        uses: actions/checkout@v2
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
