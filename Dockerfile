@@ -16,4 +16,7 @@ COPY package.json .
 RUN npm install
 
 COPY . .
+
+RUN apl --no-cache add curl 
+
 CMD ng serve --host 0.0.0.0 --port ${CLIENT_PORT}
