@@ -9,7 +9,9 @@ import { environment } from "../environments/environment";
     providedIn: 'root'
   })
 export class CreditService{
-    private options = {headers: new HttpHeaders().set('Content-Type', 'application/json')};
+    private options = {
+        headers: new HttpHeaders().set('Content-Type', 'application/json')
+    };
     api: string = environment.apiUrl + "/credits";
 
     constructor(private httpClient: HttpClient){
