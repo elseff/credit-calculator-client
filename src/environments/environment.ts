@@ -1,3 +1,3 @@
 export const environment = {
-    apiUrl: "http://credit-service-api-container:8080"
+    apiUrl: "http://95.163.229.196:8080"
 }
